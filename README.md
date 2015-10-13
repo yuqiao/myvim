@@ -15,3 +15,4 @@
 - http://www.fullstackpython.com/vim.html
 - https://github.com/klen/python-mode.git
 - http://unlogic.co.uk/2013/02/08/vim-as-a-python-ide/
+- https://github.com/davidhalter/jedi-vim

@@ -2,6 +2,7 @@ set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
+"set rtp+=~/.vim/bundle/
 call vundle#rc()
 
 " ==========================================================
@@ -12,16 +13,23 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
 Bundle 'klen/python-mode'
 Bundle 'davidhalter/jedi-vim'
-Bundle 'Lokaltog/powerline'
+" Bundle 'Lokaltog/powerline' 
+Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Bundle 'tell-k/vim-autopep8'
+Bundle 'sjl/badwolf' 
+
+" file finder
+Bundle 'kien/ctrlp.vim'
+Bundle 'benmills/vimux'
 
 " The rest of your config follows here
-augroup vimrc_autocmds
-    autocmd!
-    " highlight characters past column 120
-    autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
-    autocmd FileType python match Excess /\%120v.*/
-    autocmd FileType python set nowrap
-    augroup END
+" augroup vimrc_autocmds
+"     autocmd!
+"     " highlight characters past column 120
+"     autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
+"     autocmd FileType python match Excess /\%120v.*/
+"     autocmd FileType python set nowrap
+"     augroup END
 
 " Powerline setup
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
@@ -57,12 +65,42 @@ set wildignore+=*.o,*.obj,.git,*.pyc
 set wildignore+=eggs/**
 set wildignore+=*.egg-info/**
 
+" cursor
+set fileformat=unix
+" set cursorline
+set ruler
+" set cursorcolumn
+" set completeopt-=preview
+" hi cursorline ctermbg=lightblue
+" hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white 
+" hi cursorcolumn ctermbg=lightblue
+
+set encoding=utf-8
+set fileencodings=utf-8,chinese,gbk,latin-1
+
+set hid "chang buffer without saving
+
+" colorscheme desert
+colorscheme badwolf
+" set guifont=Monaco:h13
+set wrap
+set pastetoggle=<F3>
+set autoindent
+set smartindent             " use smart indent if there is no indent file
+
+" I'm prefer spaces to tabs
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set matchpairs+=<:>         " show matching <> (html mainly) as well
+set showmatch               " Briefly jump to a paren once it's balanced
+set virtualedit=block       " Let cursor move past the last char in <C-v> mode
+
 " ==========================================================
 " Shortcuts
 " ==========================================================
 let mapleader=","             " change the leader to be a comma vs slash
 map <F2> :NERDTreeToggle<CR>
-set pastetoggle=<F3>
 au BufNewFile,BufRead *.py map <buffer> <leader><space> :w!<cr>:!python %<cr>
 
 " Seriously, guys. It's not like :W is bound to anything anyway.
@@ -89,9 +127,12 @@ let g:pymode = 1
 let g:pymode_warning =1
 " let g:pymode_paths = []
 " 1et g:pymode_rope = 0
+let g:pymode_rope_lookup_project = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
 let g:pymode_trim_whitespaces = 1
 let g:pymode_options = 1
-let g:pymode_options_max_line_length = 79
+let g:pymode_options_max_line_length = 80
 let g:pymode_indent = 1
 let g:pymode_motion = 1
 
@@ -150,14 +191,9 @@ let g:pymode_folding = 0
 " Use <leader>l to toggle display of whitespace
 nmap <leader>l :set list!<CR>
 autocmd BufNewFile, *.py 0r ~/.vim/template/python.tpl
-
 " automatically change window's cwd to file's dir
 set autochdir
 
-" I'm prefer spaces to tabs
-set tabstop=4
-set shiftwidth=4
-set expandtab
 
 " more subtle popup colors 
 if has ('gui_running')
@@ -165,3 +201,31 @@ if has ('gui_running')
 endif
 
 let mapleader=","             " change the leader to be a comma vs slash
+
+" autopep8 
+nmap <leader>f :Autopep8<CR>
+let g:autopep8_ignore="W293,E501"
+" let g:autopep8_pep8_passes=100
+let g:autopep8_max_line_length=79
+let g:autopep8_aggressive=1        " Enable possibly unsafe changes (E711, E712)
+let g:autopep8_disable_show_diff=1 " Disable show diff window
+
+
+let g:jedi#popup_on_dot = 1
+let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
+
+let NERDTreeIgnore = ['\.pyc$']
+
+""""""""""""""""""""""""""""""""""""""""""""
+" => ctrlp line
+""""""""""""""""""""""""""""""""""""""""""""
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+hi CursorLine cterm=NONE ctermbg=brown ctermfg=white guibg=NONE guifg=NONE
+
