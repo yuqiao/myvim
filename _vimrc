@@ -13,6 +13,9 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
 Bundle 'klen/python-mode'
 Bundle 'davidhalter/jedi-vim'
+Bundle 'pbrisbin/vim-mkdir'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-commentary'
 " Bundle 'Lokaltog/powerline' 
 Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Bundle 'tell-k/vim-autopep8'
@@ -68,7 +71,7 @@ set wildignore+=*.egg-info/**
 " cursor
 set fileformat=unix
 " set cursorline
-set ruler
+" set ruler
 " set cursorcolumn
 " set completeopt-=preview
 " hi cursorline ctermbg=lightblue
@@ -125,14 +128,14 @@ command! W :w
 
 let g:pymode = 1
 let g:pymode_warning =1
-" let g:pymode_paths = []
+let g:pymode_paths = ['/Users/yuqiao/Projects/dbaas']
 " 1et g:pymode_rope = 0
 let g:pymode_rope_lookup_project = 0
 let g:pymode_rope_completion = 0
 let g:pymode_rope_complete_on_dot = 0
 let g:pymode_trim_whitespaces = 1
 let g:pymode_options = 1
-let g:pymode_options_max_line_length = 80
+let g:pymode_options_max_line_length = 79
 let g:pymode_indent = 1
 let g:pymode_motion = 1
 
@@ -227,5 +230,5 @@ let NERDTreeIgnore = ['\.pyc$']
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-hi CursorLine cterm=NONE ctermbg=brown ctermfg=white guibg=NONE guifg=NONE
+"hi CursorLine cterm=NONE ctermbg=brown ctermfg=white guibg=NONE guifg=NONE
 
